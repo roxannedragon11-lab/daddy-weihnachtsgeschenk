@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Für Daddy ❤️</title>
+  <title>Für meine einzige wahre Liebe ❤️</title>
+
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Helvetica Neue', sans-serif;
       background: linear-gradient(180deg, #7b1e3a, #3b0f1f);
       color: #fff;
@@ -15,26 +15,26 @@
       overflow: hidden;
     }
 
-    .container {
-      position: relative;
-      z-index: 2;
+    .center {
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 20px;
+      position: relative;
+      z-index: 2;
     }
 
-    .card {
-      background: rgba(255, 255, 255, 0.1);
+    .box {
+      background: rgba(255,255,255,0.12);
       border-radius: 20px;
-      padding: 30px 25px;
+      padding: 30px;
+      max-width: 380px;
+      width: 100%;
       backdrop-filter: blur(8px);
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      max-width: 400px;
-      width: 100%;
-      animation: fadeIn 2s ease;
+      animation: fadeIn 1.2s ease;
     }
 
     h1 {
@@ -42,38 +42,47 @@
       margin-bottom: 10px;
     }
 
-    h2 {
-      font-size: 1.4rem;
-      margin-bottom: 20px;
-      font-weight: normal;
-    }
-
     p {
       font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 25px;
+      line-height: 1.5;
     }
 
-    .highlight {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: #ffd6e8;
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 30px;
+      border: none;
+      text-align: center;
+      font-size: 1.1rem;
     }
 
     button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      border-radius: 30px;
+      border: none;
       background: #ffd6e8;
       color: #7b1e3a;
-      border: none;
-      border-radius: 30px;
-      padding: 12px 25px;
       font-size: 1rem;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      color: #ffd6e8;
+      margin-top: 10px;
+    }
+
+    .fade-out {
+      animation: fadeOut 0.8s ease forwards;
+    }
+
+    .fade-in {
+      animation: fadeInUp 1.2s ease forwards;
     }
 
     @keyframes fadeIn {
@@ -81,69 +90,105 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Schneeflocken */
-    .snowflake {
-      position: fixed;
-      top: -10px;
-      color: white;
-      font-size: 1em;
-      user-select: none;
-      pointer-events: none;
-      animation-name: fall;
-      animation-timing-function: linear;
+    @keyframes fadeOut {
+      to { opacity: 0; transform: scale(0.95); }
     }
 
-    @keyframes fall {
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Herzen */
+    .heart {
+      position: fixed;
+      font-size: 20px;
+      animation: floatUp 2s ease forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
       to {
-        transform: translateY(110vh);
+        opacity: 0;
+        transform: translateY(-150px) scale(1.5);
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="card">
-      <h1>🎄 Für dich, Daddy ❤️</h1>
-      <h2>Kleines Weihnachts-Vorgeschenk</h2>
+<div class="center">
+  <!-- LOGIN -->
+  <div class="box" id="login">
+    <h1>🔒 Für meine einzige wahre Liebe</h1>
+    <p>Diese kleine Überraschung<br>ist nur für dich ❤️</p>
+    <p>Bitte Code eingeben:</p>
 
-      <p>
-        Weil du mein Lieblingsmensch bist  
-        und Weihnachten auch aus kleinen Gesten besteht…
-      </p>
+    <input type="password" id="code" placeholder="••••" />
+    <button onclick="checkCode()">Öffnen 💕</button>
 
-      <p class="highlight">
-        Am <strong>20.12</strong> übernehme ich die komplette Wäsche 🧺✨
-      </p>
-
-      <p>
-        Mit ganz viel Liebe  
-        und einem Lächeln nur für dich 💕
-      </p>
-
-      <button onclick="alert('Deal ist besiegelt ❤️')">
-        Deal annehmen 😘
-      </button>
-    </div>
+    <div class="error" id="error"></div>
   </div>
 
-  <script>
-    function createSnowflake() {
-      const snowflake = document.createElement('div');
-      snowflake.classList.add('snowflake');
-      snowflake.innerText = '❄';
-      snowflake.style.left = Math.random() * window.innerWidth + 'px';
-      snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
-      snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
-      document.body.appendChild(snowflake);
+  <!-- INHALT -->
+  <div class="box hidden" id="content">
+    <h1>🎄 Für dich, Daddy ❤️</h1>
+    <p>Kleines Weihnachts-Vorgeschenk</p>
+
+    <p style="margin-top:20px;">
+      Weil du mein Lieblingsmensch bist  
+      und Liebe sich auch in kleinen Dingen zeigt…
+    </p>
+
+    <p style="margin-top:20px; font-size:1.3rem; font-weight:bold;">
+      Am <strong>20.12</strong><br>
+      übernehme ich die komplette Wäsche 🧺✨
+    </p>
+
+    <p style="margin-top:20px;">
+      Mit ganz viel Liebe,<br>
+      nur für dich 💕
+    </p>
+  </div>
+</div>
+
+<script>
+  function checkCode() {
+    const input = document.getElementById("code").value;
+    const login = document.getElementById("login");
+    const content = document.getElementById("content");
+
+    if (input === "0410") {
+      hearts();
+      login.classList.add("fade-out");
 
       setTimeout(() => {
-        snowflake.remove();
-      }, 8000);
+        login.classList.add("hidden");
+        content.classList.remove("hidden");
+        content.classList.add("fade-in");
+      }, 800);
+    } else {
+      document.getElementById("error").innerText = "Falscher Code 💔";
     }
+  }
 
-    setInterval(createSnowflake, 300);
-  </script>
+  function hearts() {
+    for (let i = 0; i < 20; i++) {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.innerText = "❤️";
+      h.style.left = Math.random() * window.innerWidth + "px";
+      h.style.top = Math.random() * window.innerHeight + "px";
+      document.body.appendChild(h);
+
+      setTimeout(() => h.remove(), 2000);
+    }
+  }
+</script>
 
 </body>
 </html>
